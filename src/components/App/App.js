@@ -9,7 +9,7 @@ export default function App() {
   return (
     <>
       <Routes>
-        <Route path="/goit-react-hw-07-phonebook" element={<Layout />}>
+        <Route path="/goit-react-hw-08-phonebook" element={<Layout />}>
           <Route index element={<Phonebook />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>
