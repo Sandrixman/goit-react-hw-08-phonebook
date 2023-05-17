@@ -1,5 +1,5 @@
 import { useDeleteContactMutation } from 'redux/contactsApi';
-import { Loading } from 'components/Loading/Loading';
+import { Spiner } from 'components/Spiner/Spiner';
 import { ContactName, ContactPhone, Button } from './Contact.styled';
 
 export const Contact = ({ contact, index }) => {
@@ -12,7 +12,7 @@ export const Contact = ({ contact, index }) => {
       </ContactName>
       <ContactPhone>{contact.phone}</ContactPhone>
       <Button onClick={() => deleteContact(contact.id)} disabled={isLoading}>
-        {isLoading ? <Loading /> : 'Delete'}
+        {isLoading ? <Spiner /> : 'Delete'}
       </Button>
     </>
   );
