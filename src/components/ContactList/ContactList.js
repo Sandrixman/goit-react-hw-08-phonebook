@@ -1,4 +1,4 @@
-import { useGetContactsQuery } from 'redux/contactsApi';
+import { useGetContactsQuery } from 'redux/phonebookApi';
 import { useSelector } from 'react-redux';
 import { Contact } from 'components/Contact/Contact';
 import { ContactsList, ListItem } from './ContactList.styled';

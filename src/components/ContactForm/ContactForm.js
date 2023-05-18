@@ -1,4 +1,4 @@
-import { useGetContactsQuery, useAddContactMutation } from 'redux/contactsApi';
+import { useGetContactsQuery, useAddContactMutation } from 'redux/phonebookApi';
 import { Formik, Field, ErrorMessage } from 'formik';
 import { string, object } from 'yup';
 import { nanoid } from 'nanoid';

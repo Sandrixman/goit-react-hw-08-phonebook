@@ -1,13 +1,15 @@
 import { Outlet } from 'react-router-dom';
-import { Section } from './Layout.styled';
 import { Navigation } from 'components/Navigation/Navigation';
+import { Section } from './Layout.styled';
 
 const Layout = () => {
   return (
-    <Section>
+    <>
       <Navigation />
-      <Outlet />
-    </Section>
+      <Section>
+        <Outlet />
+      </Section>
+    </>
   );
 };
 

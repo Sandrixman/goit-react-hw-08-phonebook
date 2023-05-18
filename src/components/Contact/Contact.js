@@ -1,4 +1,4 @@
-import { useDeleteContactMutation } from 'redux/contactsApi';
+import { useDeleteContactMutation } from 'redux/phonebookApi';
 import { Spiner } from 'components/Spiner/Spiner';
 import { ContactName, ContactPhone, Button } from './Contact.styled';
 
