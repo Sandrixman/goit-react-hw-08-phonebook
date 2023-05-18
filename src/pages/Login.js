@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Box, TextField, Switch, FormControlLabel } from '@mui/material/';
 import LoadingButton from '@mui/lab/LoadingButton';
-import SaveIcon from '@mui/icons-material/Save';
 import SendIcon from '@mui/icons-material/Send';
 import { useDispatch } from 'react-redux';
 import { logIn } from 'redux/auth/operations';
@@ -22,10 +21,6 @@ export const Login = () => {
     form.reset();
   };
 
-  function handleClick() {
-    setLoading(true);
-  }
-
   return (
     <>
       <Box
@@ -35,7 +30,6 @@ export const Login = () => {
           '& > :not(style)': { m: 1, width: '25ch' },
         }}
         noValidate
-        autoComplete="off"
       >
         <TextField
           id="outlined-basic"
@@ -48,6 +42,7 @@ export const Login = () => {
           name="password"
           label="Password"
           variant="outlined"
+          autoComplete="off"
         />
         <LoadingButton
           type="submit"
@@ -74,33 +69,6 @@ export const Login = () => {
           }
           label="Loading"
         />
-        <LoadingButton
-          onClick={handleClick}
-          loading={loading}
-          variant="outlined"
-          disabled
-        >
-          <span>disabled</span>
-        </LoadingButton>
-        <LoadingButton
-          onClick={handleClick}
-          loading={loading}
-          loadingIndicator="Loading…"
-          variant="outlined"
-        >
-          <span>Fetch data</span>
-        </LoadingButton>
-
-        <LoadingButton
-          color="secondary"
-          onClick={handleClick}
-          loading={loading}
-          loadingPosition="start"
-          startIcon={<SaveIcon />}
-          variant="contained"
-        >
-          <span>Save</span>
-        </LoadingButton>
       </Box>
     </>
   );

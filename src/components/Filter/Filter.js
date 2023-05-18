@@ -1,4 +1,4 @@
-import { findContact } from 'redux/contactsSlice';
+import { findContact } from 'redux/phonebook/slice';
 import { useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
 import { FilterWrapper } from './Filter.styled';

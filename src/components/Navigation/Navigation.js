@@ -1,41 +1,24 @@
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  Typography,
-  Button,
-  IconButton,
-} from '@mui/material';
+import { AppBar, Box, Toolbar } from '@mui/material';
+import { useSelectors } from 'Hooks/useSelectors';
 import { UserMenu } from 'components/UserMenu/UserMenu';
-import { LinkStyled } from './Navigation.styled';
+import { AuthNav } from 'components/AuthNav/AuthNav';
+import { LinkStyled, TypographyStyled } from './Navigation.styled';
 
 export const Navigation = () => {
+  const { isLoggedIn } = useSelectors();
+
   return (
     <>
       <Box sx={{}}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            ></IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              <LinkStyled to={'/'}>Phonebook</LinkStyled>
-            </Typography>
-            {true && (
-              <>
-                <Button color="inherit">
-                  <LinkStyled to={'/login'}>Login</LinkStyled>
-                </Button>
-                <Button color="inherit">
-                  <LinkStyled to={'/Registration'}>Registration</LinkStyled>
-                </Button>
-              </>
-            )}
-            {false && <UserMenu />}
+            <TypographyStyled variant="h6" sx={{ flexGrow: 1 }}>
+              <LinkStyled to={'/'}>Home</LinkStyled>
+              {isLoggedIn && (
+                <LinkStyled to={'phonebook'}>Phonebook</LinkStyled>
+              )}
+            </TypographyStyled>
+            {isLoggedIn ? <UserMenu /> : <AuthNav />}
           </Toolbar>
         </AppBar>
       </Box>

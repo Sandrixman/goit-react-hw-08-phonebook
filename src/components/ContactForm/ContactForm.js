@@ -1,15 +1,17 @@
-import { useGetContactsQuery, useAddContactMutation } from 'redux/phonebookApi';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectAllContacts } from 'redux/phonebook/selectors';
 import { Formik, Field, ErrorMessage } from 'formik';
 import { string, object } from 'yup';
 import { nanoid } from 'nanoid';
 import { toast } from 'react-toastify';
 import { FormStyled, ErrorText, Label, Button } from './ContactForm.styled';
+import { addContact } from 'redux/phonebook/operations';
 
 const id = nanoid();
 
 const ContactForm = () => {
-  const [addContact] = useAddContactMutation();
-  const { data } = useGetContactsQuery();
+  const contacts = useSelector(selectAllContacts);
+  const dispatch = useDispatch();
 
   const initialValues = {
     name: '',
@@ -30,14 +32,16 @@ const ContactForm = () => {
     );
   };
 
-  const handleSubmit = async (values, { resetForm }) => {
-    const isContactExists = data.some(contact => contact.name === values.name);
+  const handleSubmit = (values, { resetForm }) => {
+    const isContactExists = contacts.some(
+      contact => contact.name === values.name
+    );
 
     isContactExists
       ? toast.error(`${values.name} is already in contacts`, {
           position: 'top-center',
         })
-      : await addContact(values);
+      : dispatch(addContact(values));
 
     // error?.data &&
     //   toast.error(`${error}`, {

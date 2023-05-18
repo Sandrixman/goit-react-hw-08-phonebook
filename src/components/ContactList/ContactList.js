@@ -1,12 +1,16 @@
-import { useGetContactsQuery } from 'redux/phonebookApi';
 import { useSelector } from 'react-redux';
+import {
+  selectLoading,
+  selectError,
+  selectFilteredOutContacts,
+} from 'redux/phonebook/selectors';
 import { Contact } from 'components/Contact/Contact';
 import { ContactsList, ListItem } from './ContactList.styled';
 
 const ContactList = () => {
-  const filter = useSelector(state => state.phonebook.filter);
-
-  const { data, isLoading, isError } = useGetContactsQuery();
+  const isLoading = useSelector(selectLoading);
+  const isError = useSelector(selectError);
+  const filteredOutContacts = useSelector(selectFilteredOutContacts);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -15,10 +19,6 @@ const ContactList = () => {
   if (isError) {
     return <div>Error occurred while fetching contacts.</div>;
   }
-
-  const filteredOutContacts = data.filter(contact =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
 
   return (
     <>

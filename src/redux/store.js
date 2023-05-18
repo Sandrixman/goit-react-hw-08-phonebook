@@ -8,13 +8,13 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import { phonebookSlice } from './contactsSlice';
+import { phonebookReducer } from './phonebook/slice';
 import { persistAuthReducer } from './auth/slice';
 
 export const store = configureStore({
   reducer: {
     auth: persistAuthReducer,
-    phonebook: phonebookSlice.reducer,
+    phonebook: phonebookReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
