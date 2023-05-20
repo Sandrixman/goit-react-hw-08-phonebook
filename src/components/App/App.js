@@ -1,47 +1,50 @@
-import { useEffect } from 'react';
+import { lazy, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Routes, Route, Navigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { refreshUser } from 'redux/auth/operations';
-import { useSelectors } from 'Hooks/useSelectors';
+import { authOperations } from 'redux/auth';
 import { Layout } from 'components/Layout/Layout';
-import { Phonebook } from 'pages/Phonebook';
-import { ErrorPage } from 'pages/ErrorPage';
-import { Login } from 'pages/Login';
-import { Registration } from 'pages/Registration';
-import { Home } from 'pages/Home';
+import { PrivateRoute } from 'components/PrivateRoute';
+import { PublicRoute } from 'components/PublicRoute';
+
+const HomePage = lazy(() => import('pages/HomePage'));
+const LoginPage = lazy(() => import('pages/LoginPage'));
+const RegistrationPage = lazy(() => import('pages/RegistrationPage'));
+const PhonebookPage = lazy(() => import('pages/PhonebookPage'));
+const ErrorPage = lazy(() => import('pages/ErrorPage'));
 
 export default function App() {
   const dispatch = useDispatch();
-  const { isRefreshing, isLoggedIn } = useSelectors();
-  const shouldRedirect = !isLoggedIn && !isRefreshing;
 
   useEffect(() => {
-    dispatch(refreshUser());
+    dispatch(authOperations.refreshUser());
   }, [dispatch]);
 
-  return isRefreshing ? (
-    <b>Refreshing user...</b>
-  ) : (
+  return (
     <>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
+          <Route index element={<HomePage />} />
           <Route
-            path="registration"
+            path="/registration"
             element={
-              isLoggedIn ? <Navigate to={'/phonebook'} /> : <Registration />
+              <PublicRoute
+                redirectTo="/phonebook"
+                component={<RegistrationPage />}
+              />
             }
           />
           <Route
-            path="login"
-            element={isLoggedIn ? <Navigate to={'/phonebook'} /> : <Login />}
+            path="/login"
+            element={
+              <PublicRoute redirectTo="/phonebook" component={<LoginPage />} />
+            }
           />
           <Route
-            path="phonebook"
+            path="/phonebook"
             element={
-              shouldRedirect ? <Navigate to={'/login'} /> : <Phonebook />
+              <PrivateRoute redirectTo="/login" component={<PhonebookPage />} />
             }
           />
         </Route>

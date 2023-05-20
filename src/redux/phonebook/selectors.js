@@ -2,7 +2,7 @@ export const selectAllContacts = state => state.phonebook.contacts.items;
 
 export const selectFilter = state => state.phonebook.filter;
 
-export const selectLoading = state => state.phonebook.contacts.isLoading;
+export const selectPhonebookLoading = state => state.phonebook.contacts.isLoading;
 
 export const selectError = state => state.phonebook.contacts.error;
 

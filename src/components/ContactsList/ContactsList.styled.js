@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const ContactsList = styled.ul`
+export const List = styled.ul`
   display: inline-flex;
   flex-direction: column;
   margin-top: 20px;

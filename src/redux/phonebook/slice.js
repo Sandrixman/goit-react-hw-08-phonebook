@@ -1,6 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-import { logOut } from 'redux/auth/operations';
 import { fetchContacts, addContact, deleteContact } from './operations';
 
 const handlePending = state => {
@@ -38,16 +36,12 @@ const phonebookSlice = createSlice({
       state.contacts.isLoading = false;
       state.contacts.error = null;
       state.contacts.items.push(action.payload);
+      console.log(action.payload);
     },
     [deleteContact.fulfilled](state, action) {
       state.contacts.isLoading = false;
       state.contacts.error = null;
       state.contacts.items.filter(contact => contact.id !== action.payload.id);
-    },
-    [logOut.fulfilled](state) {
-      state.contacts.items = [];
-      state.contacts.error = null;
-      state.contacts.isLoading = false;
     },
   },
   reducers: {

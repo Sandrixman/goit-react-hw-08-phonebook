@@ -1,15 +1,15 @@
 import { findContact } from 'redux/phonebook/slice';
 import { useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
-import { FilterWrapper } from './Filter.styled';
+import { FilterWrapper } from './ContactsFilter.styled';
 
 const id = nanoid();
 let inputValue = null;
 
-const Filter = () => {
+export const ContactsFilter = () => {
   const dispatch = useDispatch();
 
-  const changeFilter = e => {
+  const handleFilter = e => {
     inputValue = e.currentTarget.value;
     dispatch(findContact(inputValue));
   };
@@ -17,9 +17,7 @@ const Filter = () => {
   return (
     <FilterWrapper>
       <label htmlFor={id}>Find contacts by name</label>
-      <input id={id} type="text" onChange={changeFilter} />
+      <input id={id} type="text" onChange={handleFilter} />
     </FilterWrapper>
   );
 };
-
-export default Filter;

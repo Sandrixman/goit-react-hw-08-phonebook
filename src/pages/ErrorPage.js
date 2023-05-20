@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-export const ErrorPage = () => {
+const ErrorPage = () => {
   return (
     <>
       <h2>Sorry, the page not found</h2>
@@ -8,3 +8,5 @@ export const ErrorPage = () => {
     </>
   );
 };
+
+export default ErrorPage;

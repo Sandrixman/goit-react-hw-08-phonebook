@@ -1,19 +1,24 @@
-import { useDispatch } from 'react-redux';
-import { logOut } from 'redux/auth/operations';
+import { useDispatch, useSelector } from 'react-redux';
+import { IconContext } from 'react-icons';
+import { FaUserCircle } from 'react-icons/fa';
+import { authOperations, authSelectors } from 'redux/auth';
+import { Wrapper } from './UserMenu.styled';
 
 export const UserMenu = () => {
   const dispatch = useDispatch();
-
-  const handleClick = () => {
-    dispatch(logOut());
-  };
+  const user = useSelector(authSelectors.selectUser);
 
   return (
     <>
-      <div>
-        <p>mango@mail.com</p>
-        <button onClick={handleClick}>Logout</button>
-      </div>
+      <Wrapper>
+        <IconContext.Provider value={{ size: '2em' }}>
+          <FaUserCircle />
+        </IconContext.Provider>
+        <p>Wellcome, {user.email}</p>
+        <button onClick={() => dispatch(authOperations.logOut())}>
+          Logout
+        </button>
+      </Wrapper>
     </>
   );
 };

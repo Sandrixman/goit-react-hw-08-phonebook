@@ -1,12 +1,9 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-
-axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
-
-// axios.defaults.headers.common.Authorization = setAuthHeader();
+import { toast } from 'react-toastify';
 
 export const fetchContacts = createAsyncThunk(
-  'contacts/fetchAll',
+  'phonebook/fetchAll',
   async (_, thunkAPI) => {
     try {
       const { data } = await axios.get('/contacts');
@@ -18,10 +15,14 @@ export const fetchContacts = createAsyncThunk(
 );
 
 export const addContact = createAsyncThunk(
-  'contacts/addContact',
+  'phonebook/addContact',
   async (contact, thunkAPI) => {
     try {
-      const response = await axios.post('/contacts', { contact });
+      const response = await axios.post('/contacts', contact);
+      toast.success(`${contact.name} is added`, {
+        position: 'top-center',
+        autoClose: 2000,
+      });
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
@@ -30,7 +31,7 @@ export const addContact = createAsyncThunk(
 );
 
 export const deleteContact = createAsyncThunk(
-  'contacts/deleteContact',
+  'phonebook/deleteContact',
   async (contactId, thunkAPI) => {
     try {
       const { data } = await axios.delete(`/contacts/${contactId}`);

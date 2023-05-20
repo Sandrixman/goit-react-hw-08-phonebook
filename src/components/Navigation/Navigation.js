@@ -1,11 +1,12 @@
 import { AppBar, Box, Toolbar } from '@mui/material';
-import { useSelectors } from 'Hooks/useSelectors';
+import { useSelector } from 'react-redux';
+import { authSelectors } from 'redux/auth';
 import { UserMenu } from 'components/UserMenu/UserMenu';
 import { AuthNav } from 'components/AuthNav/AuthNav';
 import { LinkStyled, TypographyStyled } from './Navigation.styled';
 
 export const Navigation = () => {
-  const { isLoggedIn } = useSelectors();
+  const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn);
 
   return (
     <>
