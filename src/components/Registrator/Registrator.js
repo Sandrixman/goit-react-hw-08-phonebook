@@ -1,8 +1,7 @@
 import { useDispatch } from 'react-redux';
-import { Box, TextField } from '@mui/material/';
-import LoadingButton from '@mui/lab/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
 import { authOperations } from 'redux/auth';
+import { BoxStyled, Button, Input } from '../Login/Login.styled';
 
 export const Registrator = () => {
   const dispatch = useDispatch();
@@ -21,41 +20,36 @@ export const Registrator = () => {
   };
 
   return (
-    <Box
+    <BoxStyled
       onSubmit={handleSubmit}
       component="form"
       sx={{
-        '& > :not(style)': { m: 1, width: '25ch' },
+        '& > :not(style)': { m: 1 },
       }}
       noValidate
       autoComplete="off"
     >
-      <TextField
-        id="outlined-basic"
-        name="name"
-        label="Name"
-        variant="outlined"
-      />
-      <TextField
+      <Input id="outlined-basic" name="name" label="Name" variant="outlined" />
+      <Input
         id="outlined-basic"
         name="email"
         label="E-mail"
         variant="outlined"
       />
-      <TextField
+      <Input
         id="outlined-basic"
         name="password"
         label="Password"
         variant="outlined"
       />
-      <LoadingButton
+      <Button
         type="submit"
         endIcon={<SendIcon />}
         loadingPosition="end"
         variant="contained"
       >
         <span>Log in</span>
-      </LoadingButton>
-    </Box>
+      </Button>
+    </BoxStyled>
   );
 };

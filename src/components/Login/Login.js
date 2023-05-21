@@ -1,9 +1,8 @@
-import { Box, TextField } from '@mui/material/';
-import LoadingButton from '@mui/lab/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
 import { useDispatch, useSelector } from 'react-redux';
 import { logIn } from 'redux/auth/operations';
 import { selectAuthLoading } from 'redux/auth/selectors';
+import { BoxStyled, Button, Input } from './Login.styled';
 
 export const Login = () => {
   const isLoading = useSelector(selectAuthLoading);
@@ -22,28 +21,28 @@ export const Login = () => {
   };
 
   return (
-    <Box
+    <BoxStyled
       onSubmit={handleSubmit}
       component="form"
       sx={{
-        '& > :not(style)': { m: 1, width: '25ch' },
+        '& > :not(style)': { m: 1 },
       }}
       noValidate
     >
-      <TextField
+      <Input
         id="outlined-basic"
         name="email"
         label="E-mail"
         variant="outlined"
       />
-      <TextField
+      <Input
         id="outlined-basic"
         name="password"
         label="Password"
         variant="outlined"
         autoComplete="off"
       />
-      <LoadingButton
+      <Button
         type="submit"
         endIcon={<SendIcon />}
         loading={isLoading}
@@ -51,7 +50,7 @@ export const Login = () => {
         variant="contained"
       >
         <span>Log in</span>
-      </LoadingButton>
-    </Box>
+      </Button>
+    </BoxStyled>
   );
 };

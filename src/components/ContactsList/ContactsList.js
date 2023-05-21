@@ -34,7 +34,7 @@ export const ContactsList = () => {
       {filteredOutContacts && (
         <List>
           {Boolean(filteredOutContacts.length === 0) && (
-            <h2>No contacts found.</h2>
+            <h3>No contacts found.</h3>
           )}
           {filteredOutContacts.map((contact, index) => (
             <ListItem key={contact.id}>

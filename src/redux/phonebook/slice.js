@@ -36,12 +36,13 @@ const phonebookSlice = createSlice({
       state.contacts.isLoading = false;
       state.contacts.error = null;
       state.contacts.items.push(action.payload);
-      console.log(action.payload);
     },
     [deleteContact.fulfilled](state, action) {
       state.contacts.isLoading = false;
       state.contacts.error = null;
-      state.contacts.items.filter(contact => contact.id !== action.payload.id);
+      state.contacts.items = state.contacts.items.filter(
+        contact => contact.id !== action.payload.id
+      );
     },
   },
   reducers: {

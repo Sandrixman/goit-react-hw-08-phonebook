@@ -7,8 +7,9 @@ import { authOperations } from 'redux/auth';
 import { Layout } from 'components/Layout/Layout';
 import { PrivateRoute } from 'components/PrivateRoute';
 import { PublicRoute } from 'components/PublicRoute';
+import { HomePage } from 'pages/HomePage';
 
-const HomePage = lazy(() => import('pages/HomePage'));
+// const HomePage = lazy(() => import('pages/HomePage'));
 const LoginPage = lazy(() => import('pages/LoginPage'));
 const RegistrationPage = lazy(() => import('pages/RegistrationPage'));
 const PhonebookPage = lazy(() => import('pages/PhonebookPage'));
