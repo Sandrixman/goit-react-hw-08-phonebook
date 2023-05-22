@@ -3,17 +3,15 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { register, logIn, logOut, refreshUser } from './operations';
 
-const initialState = {
-  user: { name: null, email: null },
-  token: null,
-  isLoggedIn: false,
-  isRefreshing: false,
-  isLoading: false,
-};
-
 export const authSlice = createSlice({
   name: 'auth',
-  initialState,
+  initialState: {
+    user: { name: null, email: null },
+    token: null,
+    isLoggedIn: false,
+    isRefreshing: false,
+    isLoading: false,
+  },
   extraReducers: {
     [register.pending](state) {
       state.isLoading = true;

@@ -1,11 +1,26 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import SendIcon from '@mui/icons-material/Send';
+import {
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { logIn } from 'redux/auth/operations';
-import { selectAuthLoading } from 'redux/auth/selectors';
-import { BoxStyled, Button, Input } from './Login.styled';
+import { authSelectors } from 'redux/auth';
+import { BoxStyled, Button } from './Login.styled';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 export const Login = () => {
-  const isLoading = useSelector(selectAuthLoading);
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword(show => !show);
+
+  const isLoading = useSelector(authSelectors.selectAuthLoading);
   const dispatch = useDispatch();
 
   const handleSubmit = e => {
@@ -29,19 +44,36 @@ export const Login = () => {
       }}
       noValidate
     >
-      <Input
+      <Typography variant="h4" component="h2">
+        Phonebook
+      </Typography>
+      <TextField
+        fullWidth
         id="outlined-basic"
         name="email"
         label="E-mail"
         variant="outlined"
       />
-      <Input
-        id="outlined-basic"
-        name="password"
-        label="Password"
-        variant="outlined"
-        autoComplete="off"
-      />
+      <FormControl fullWidth variant="outlined">
+        <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+        <OutlinedInput
+          name="password"
+          id="outlined-adornment-password"
+          type={showPassword ? 'text' : 'password'}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={handleClickShowPassword}
+                edge="end"
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          }
+          label="Password"
+        />
+      </FormControl>
       <Button
         type="submit"
         endIcon={<SendIcon />}
@@ -49,8 +81,9 @@ export const Login = () => {
         loadingPosition="end"
         variant="contained"
       >
-        <span>Log in</span>
+        Log in
       </Button>
+      <Link to="/registration">No account? Register now!</Link>
     </BoxStyled>
   );
 };

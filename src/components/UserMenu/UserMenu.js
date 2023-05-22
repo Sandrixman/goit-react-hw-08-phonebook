@@ -3,6 +3,7 @@ import { IconContext } from 'react-icons';
 import { FaUserCircle } from 'react-icons/fa';
 import { authOperations, authSelectors } from 'redux/auth';
 import { ButtonStyled, Wrapper } from './UserMenu.styled';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 export const UserMenu = () => {
   const dispatch = useDispatch();
@@ -14,9 +15,12 @@ export const UserMenu = () => {
         <IconContext.Provider value={{ size: '2em' }}>
           <FaUserCircle />
         </IconContext.Provider>
-        <p>Wellcome, {user.email}</p>
-        <ButtonStyled onClick={() => dispatch(authOperations.logOut())}>
-          Logout
+        <p>Wellcome, {user.name}</p>
+        <ButtonStyled
+          sx={{ minWidth: '38px', width: '38px' }}
+          onClick={() => dispatch(authOperations.logOut())}
+        >
+          <LogoutIcon />
         </ButtonStyled>
       </Wrapper>
     </>

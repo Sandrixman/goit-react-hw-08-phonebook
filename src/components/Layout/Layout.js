@@ -1,17 +1,35 @@
-import { Suspense, createContext, useContext } from 'react';
-import { ThemeProvider, useTheme } from '@mui/material/styles';
+import { Suspense, createContext, useMemo, useState } from 'react';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Outlet } from 'react-router-dom';
 import { Navigation } from 'components/Navigation/Navigation';
 import { Section } from './Layout.styled';
 import { Spiner } from 'components/Spiner/Spiner';
 import { ThemeSwither } from 'utils/ThemeSwither';
 
-const ColorModeContext = createContext({ toggleColorMode: () => {} });
+export const ColorModeContext = createContext({
+  toggleColorMode: () => {},
+});
 
 export const Layout = () => {
-  const colorMode = useContext(ColorModeContext);
-  const theme = useTheme();
-  console.log(theme);
+  const [mode, setMode] = useState('light');
+  const colorMode = useMemo(
+    () => ({
+      toggleColorMode: () => {
+        setMode(prevMode => (prevMode === 'light' ? 'dark' : 'light'));
+      },
+    }),
+    []
+  );
+
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode,
+        },
+      }),
+    [mode]
+  );
 
   return (
     <ColorModeContext.Provider value={colorMode}>

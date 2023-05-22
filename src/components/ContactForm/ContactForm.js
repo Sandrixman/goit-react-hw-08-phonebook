@@ -1,15 +1,24 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Formik, Field, ErrorMessage } from 'formik';
+import { Formik, ErrorMessage, Field, Form } from 'formik';
 import { string, object } from 'yup';
 import { nanoid } from 'nanoid';
 import { toast } from 'react-toastify';
 import { phonebookOperations, phonebookSelectors } from 'redux/phonebook';
-import { FormStyled, ErrorText, Label, Button } from './ContactForm.styled';
+import SendIcon from '@mui/icons-material/Send';
+import { Typography } from '@mui/material';
+import {
+  BoxStyled,
+  FormErrorWrapper,
+  ErrorText,
+  Button,
+} from './ContactForm.styled';
 
 const id = nanoid();
 
 export const ContactForm = () => {
   const contacts = useSelector(phonebookSelectors.selectAllContacts);
+  const isLoading = useSelector(phonebookSelectors.selectPhonebookLoading);
+
   const dispatch = useDispatch();
 
   const initialValues = {
@@ -52,27 +61,36 @@ export const ContactForm = () => {
         onSubmit={handleSubmit}
         validationSchema={schema}
       >
-        <FormStyled>
-          <Label htmlFor={id}>Name</Label>
-          <Field
-            id={id}
-            type="text"
-            name="name"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
-          />
-          <FormError name="name" />
-          <Label htmlFor={id}>Number</Label>
-          <Field
-            id={id}
-            type="tel"
-            name="number"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            required
-          />
-          <FormError name="number" />
-          <Button type="submit">Add contact</Button>
-        </FormStyled>
+        <Form>
+          <BoxStyled>
+            <Typography variant="h3" component="h2" mb="20px">
+              Phonebook
+            </Typography>
+            <Field id={id} name="name" label="Name" variant="outlined" />
+            <FormErrorWrapper>
+              <FormError name="name" />
+            </FormErrorWrapper>
+            <Field
+              id={id}
+              name="number"
+              label="Phone"
+              type="tel"
+              variant="outlined"
+            />
+            <FormErrorWrapper>
+              <FormError name="number" />
+            </FormErrorWrapper>
+            <Button
+              type="submit"
+              endIcon={<SendIcon />}
+              loading={isLoading}
+              loadingPosition="end"
+              variant="contained"
+            >
+              Add contact
+            </Button>
+          </BoxStyled>
+        </Form>
       </Formik>
     </>
   );

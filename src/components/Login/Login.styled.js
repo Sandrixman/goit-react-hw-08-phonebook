@@ -1,15 +1,17 @@
 import styled from '@emotion/styled';
-import { Box, TextField } from '@mui/material/';
+import { Box } from '@mui/material/';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 export const BoxStyled = styled(Box)`
   display: grid;
-  justify-content: center;
   justify-items: center;
-`;
-
-export const Input = styled(TextField)`
-  width: 300px;
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #1565c04a;
+  border-radius: 10px;
+  background: #c6d3ff;
+  box-shadow: 3px 3px 13px #1565c0;
 `;
 
 export const Button = styled(LoadingButton)`

@@ -1,25 +1,41 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { selectPhonebookLoading } from 'redux/phonebook/selectors';
+import { useDispatch } from 'react-redux';
 import { deleteContact } from 'redux/phonebook/operations';
-import { Spiner } from 'components/Spiner/Spiner';
-import { ContactName, ContactPhone, Button } from './Contact.styled';
+import { IconButton } from '@mui/material';
 
-export const Contact = ({ contact, index }) => {
-  const isLoading = useSelector(selectPhonebookLoading);
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+export const Contact = ({ contact }) => {
   const dispatch = useDispatch();
 
   return (
     <>
-      <ContactName>
-        {index + 1}. {contact.name}:
-      </ContactName>
-      <ContactPhone>{contact.number}</ContactPhone>
-      <Button
+      <ListItemAvatar>
+        <Avatar alt={contact.name} src="/" />
+      </ListItemAvatar>
+      <ListItemText
+        primary={contact.name}
+        secondary={
+          <Typography
+            sx={{ display: 'inline' }}
+            component="span"
+            variant="body2"
+            color="text.primary"
+          >
+            {contact.number}
+          </Typography>
+        }
+      />
+      <IconButton
+        aria-label="delete"
+        size="large"
         onClick={() => dispatch(deleteContact(contact.id))}
-        disabled={isLoading}
       >
-        {isLoading ? <Spiner /> : 'Delete'}
-      </Button>
+        <DeleteIcon fontSize="inherit" />
+      </IconButton>
     </>
   );
 };

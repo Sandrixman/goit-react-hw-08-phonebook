@@ -1,10 +1,11 @@
+import { ListItem, List, Divider, Typography } from '@mui/material';
 import { toast } from 'react-toastify';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { phonebookOperations, phonebookSelectors } from 'redux/phonebook';
 import { Contact } from 'components/Contact/Contact';
 import { Spiner } from 'components/Spiner/Spiner';
-import { List, ListItem } from './ContactsList.styled';
+import { ListItemWripper } from './ContactsList.styled';
 
 export const ContactsList = () => {
   const dispatch = useDispatch();
@@ -31,15 +32,28 @@ export const ContactsList = () => {
 
   return (
     <>
+      <Typography
+        variant="h4"
+        component="h2"
+        color="slategray"
+        textAlign="center"
+      >
+        Contacts
+      </Typography>
       {filteredOutContacts && (
-        <List>
+        <List sx={{ maxWidth: 500, p: 0, m: 'auto' }}>
           {Boolean(filteredOutContacts.length === 0) && (
-            <h3>No contacts found.</h3>
+            <Typography variant="h5" component="p" textAlign="center" mt="20px">
+              No contacts found.
+            </Typography>
           )}
           {filteredOutContacts.map((contact, index) => (
-            <ListItem key={contact.id}>
-              <Contact contact={contact} index={index} />
-            </ListItem>
+            <ListItemWripper key={contact.id}>
+              <ListItem>
+                <Contact contact={contact} index={index} />
+              </ListItem>
+              <Divider variant="inset" component="li" />
+            </ListItemWripper>
           ))}
         </List>
       )}

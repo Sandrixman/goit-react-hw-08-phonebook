@@ -1,35 +1,19 @@
-import { useMemo, useState } from 'react';
-import { createTheme } from '@mui/material/styles';
+import { useContext } from 'react';
 import { Box, IconButton } from '@mui/material';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { useTheme } from '@emotion/react';
+import { ColorModeContext } from 'components/Layout/Layout';
 
-export const ThemeSwither = () => {
-  const [mode, setMode] = useState('dark');
-  const colorMode = useMemo(
-    () => ({
-      toggleColorMode: () => {
-        setMode(prevMode => (prevMode === 'light' ? 'dark' : 'light'));
-      },
-    }),
-    []
-  );
+export function ThemeSwither() {
+  const theme = useTheme();
 
-  const theme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode,
-        },
-      }),
-    [mode]
-  );
-  console.log(theme);
-
+  const colorMode = useContext(ColorModeContext);
   return (
     <Box
       sx={{
         display: 'flex',
+        width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
         bgcolor: 'background.default',
@@ -52,4 +36,4 @@ export const ThemeSwither = () => {
       </IconButton>
     </Box>
   );
-};
+}

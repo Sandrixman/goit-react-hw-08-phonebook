@@ -1,26 +1,27 @@
 import styled from '@emotion/styled';
-import { Form } from 'formik';
+import { Box, TextField } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 
-export const FormStyled = styled(Form)`
-  border: 1px solid black;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  max-width: 300px;
+export const BoxStyled = styled(Box)`
+  display: grid;
+  justify-items: center;
+  margin: auto;
   padding: 20px;
+`;
+
+export const Field = styled(TextField)`
+  max-width: 400px;
+`;
+
+export const Button = styled(LoadingButton)`
+  max-width: 200px;
+`;
+
+export const FormErrorWrapper = styled.div`
+  height: 20px;
 `;
 
 export const ErrorText = styled.p`
   color: red;
   margin: 0;
-`;
-
-export const Label = styled.label`
-  :nth-of-type(2) {
-    margin-top: 10px;
-  }
-`;
-
-export const Button = styled.button`
-  margin-top: 20px;
 `;

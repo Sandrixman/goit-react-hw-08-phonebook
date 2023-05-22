@@ -10,7 +10,6 @@ export const Wrapper = styled.div`
 export const ButtonStyled = styled(Button)`
   color: white;
   border: 1px solid white;
-  height: 30px;
   text-transform: capitalize;
   :hover {
     background-color: orange;
