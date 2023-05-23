@@ -2,9 +2,9 @@ import { Suspense, createContext, useMemo, useState } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Outlet } from 'react-router-dom';
 import { Navigation } from 'components/Navigation/Navigation';
-import { Section } from './Layout.styled';
 import { Spiner } from 'components/Spiner/Spiner';
 import { ThemeSwither } from 'utils/ThemeSwither';
+import { Box } from '@mui/material';
 
 export const ColorModeContext = createContext({
   toggleColorMode: () => {},
@@ -37,9 +37,15 @@ export const Layout = () => {
         <ThemeSwither />
         <Navigation />
         <Suspense fallback={<Spiner />}>
-          <Section>
+          <Box
+            sx={{
+              bgcolor: 'background.default',
+              color: 'text.primary',
+              height: '100vh',
+            }}
+          >
             <Outlet />
-          </Section>
+          </Box>
         </Suspense>
       </ThemeProvider>
     </ColorModeContext.Provider>

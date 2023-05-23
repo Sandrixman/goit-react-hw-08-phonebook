@@ -10,7 +10,7 @@ export const Navigation = () => {
 
   return (
     <>
-      <Box sx={{}}>
+      <Box>
         <AppBar position="static">
           <Toolbar>
             <TypographyStyled variant="h6" sx={{ flexGrow: 1 }}>

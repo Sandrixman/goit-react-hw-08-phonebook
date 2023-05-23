@@ -17,7 +17,7 @@ export const ContactsFilter = () => {
       label="Find contacts by name"
       id="outlined-basic"
       variant="outlined"
-      sx={{ m: 1 }}
+      sx={{ mx: 'auto', mb: '30px', display: 'flex', width: '50%' }}
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
