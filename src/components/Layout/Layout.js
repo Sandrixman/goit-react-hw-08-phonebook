@@ -35,18 +35,20 @@ export const Layout = () => {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <ThemeSwither />
-        <Navigation />
-        <Suspense fallback={<Spiner />}>
-          <Box
-            sx={{
-              bgcolor: 'background.default',
-              color: 'text.primary',
-              height: '100vh',
-            }}
-          >
+        <Box
+          sx={{
+            bgcolor: 'background.default',
+            color: 'text.primary',
+            height: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <Navigation />
+          <Suspense fallback={<Spiner />}>
             <Outlet />
-          </Box>
-        </Suspense>
+          </Suspense>
+        </Box>
       </ThemeProvider>
     </ColorModeContext.Provider>
   );

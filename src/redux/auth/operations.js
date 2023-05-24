@@ -18,8 +18,30 @@ export const register = createAsyncThunk(
     try {
       const { data } = await axios.post('/users/signup', credentials);
       setAuthHeader(data.token);
+      toast.success(`${data.user.name} successfully registered`, {
+        position: 'top-center',
+        autoClose: 3000,
+      });
       return data;
     } catch (error) {
+      const response = error.request.response;
+      const object = JSON.parse(response);
+      object.errors?.name &&
+        toast.error(`${object.errors.name.message}`, {
+          position: 'top-center',
+          autoClose: 2000,
+        });
+      object.errors?.email &&
+        toast.error(`${object.errors.email.message}`, {
+          position: 'top-center',
+          autoClose: 2000,
+        });
+      object.errors?.password &&
+        toast.error(`${object.errors.password.message}`, {
+          position: 'top-center',
+          autoClose: 2000,
+        });
+
       return thunkAPI.rejectWithValue(error.message);
     }
   }

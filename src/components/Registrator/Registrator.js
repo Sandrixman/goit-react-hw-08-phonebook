@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { authOperations } from 'redux/auth';
+import { LoadingButton } from '@mui/lab';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import SendIcon from '@mui/icons-material/Send';
 import {
   FormControl,
@@ -11,9 +12,9 @@ import {
   OutlinedInput,
   TextField,
   Typography,
+  Paper,
 } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { BoxStyled, Button } from '../Login/Login.styled';
+import { RouterLink } from 'components/Login/Login.styled';
 
 export const Registrator = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -35,44 +36,33 @@ export const Registrator = () => {
   };
 
   return (
-    <BoxStyled
+    <Paper
       onSubmit={handleSubmit}
       component="form"
+      elevation={16}
       sx={{
         '& > :not(style)': { m: 1 },
+        display: 'grid',
+        justifyItems: 'center',
+        maxWidth: '400px',
+        borderRadius: '10px',
+        m: 'auto',
+        padding: '20px',
       }}
-      noValidate
-      autoComplete="off"
     >
       <Typography variant="h4" component="h2">
         Phonebook
       </Typography>
-      <TextField
-        fullWidth
-        id="outlined-basic"
-        name="name"
-        label="Name"
-        variant="outlined"
-      />
-      <TextField
-        fullWidth
-        id="outlined-basic"
-        name="email"
-        label="E-mail"
-        variant="outlined"
-      />
+      <TextField fullWidth name="name" label="Name" variant="outlined" />
+      <TextField fullWidth name="email" label="E-mail" variant="outlined" />
       <FormControl fullWidth variant="outlined">
-        <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+        <InputLabel>Password</InputLabel>
         <OutlinedInput
-          id="outlined-adornment-password"
+          name="password"
           type={showPassword ? 'text' : 'password'}
           endAdornment={
             <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                edge="end"
-              >
+              <IconButton onClick={handleClickShowPassword} edge="end">
                 {showPassword ? <VisibilityOff /> : <Visibility />}
               </IconButton>
             </InputAdornment>
@@ -80,15 +70,16 @@ export const Registrator = () => {
           label="Password"
         />
       </FormControl>
-      <Button
+      <LoadingButton
         type="submit"
+        sx={{ width: '150px' }}
         endIcon={<SendIcon />}
         loadingPosition="end"
         variant="contained"
       >
         <span>Sign up</span>
-      </Button>
-      <Link to="/login">Log in to your account</Link>
-    </BoxStyled>
+      </LoadingButton>
+      <RouterLink to="/registration">Log in to your account</RouterLink>
+    </Paper>
   );
 };

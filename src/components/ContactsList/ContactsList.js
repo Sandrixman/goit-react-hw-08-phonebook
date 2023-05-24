@@ -2,8 +2,11 @@ import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { phonebookOperations, phonebookSelectors } from 'redux/phonebook';
+import { Modal } from 'components/Modal/Modal';
 import { Spiner } from 'components/Spiner/Spiner';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { tableCellClasses } from '@mui/material/TableCell';
+import TablePaginationActions from '@mui/material/TablePagination/TablePaginationActions';
 import {
   Table,
   TableBody,
@@ -13,15 +16,11 @@ import {
   TableRow,
   Paper,
   IconButton,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogTitle,
   TableHead,
   Typography,
   TablePagination,
 } from '@mui/material';
-import TablePaginationActions from '@mui/material/TablePagination/TablePaginationActions';
+import styled from '@emotion/styled';
 
 export const ContactsList = () => {
   const [open, setOpen] = useState(false);
@@ -59,12 +58,19 @@ export const ContactsList = () => {
     setPage(0);
   };
 
-  const handleClickOpen = () => {
+  const modalOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
   };
+
+  const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.common.white,
+    },
+  }));
 
   return (
     <>
@@ -75,15 +81,15 @@ export const ContactsList = () => {
       )}
       <TableContainer
         component={Paper}
-        elevation={9}
-        sx={{ width: '80%', m: 'auto' }}
+        elevation={16}
+        sx={{ width: '70%', mx: 'auto', mb: '30px' }}
       >
-        <Table aria-label="custom pagination table">
+        <Table stickyHeader size="small">
           <TableHead sx={{ backgroundColor: '#1976d285' }}>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Phone</TableCell>
-              <TableCell align="right">Delete</TableCell>
+              <StyledTableCell>Name</StyledTableCell>
+              <StyledTableCell align="right">Phone</StyledTableCell>
+              <StyledTableCell align="right">Delete</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -95,46 +101,22 @@ export const ContactsList = () => {
               : filteredOutContacts
             ).map(contact => (
               <TableRow hover key={contact.id}>
-                <TableCell>{contact.name}</TableCell>
-                <TableCell style={{ MaxWidth: 130 }} align="right">
+                <StyledTableCell>{contact.name}</StyledTableCell>
+                <StyledTableCell style={{ MaxWidth: 130 }} align="right">
                   {contact.number}
-                </TableCell>
-                <TableCell style={{ maxWidth: 100 }} align="right">
+                </StyledTableCell>
+                <StyledTableCell style={{ maxWidth: 100 }} align="right">
                   <IconButton
                     aria-label="delete"
                     size="medium"
                     onClick={() => {
-                      handleClickOpen();
+                      modalOpen();
                       setElementId(contact.id);
                     }}
                   >
                     <DeleteIcon fontSize="inherit" />
                   </IconButton>
-                  <Dialog
-                    sx={{ backgroundColor: '#1976d285' }}
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="alert-dialog-title"
-                  >
-                    <DialogTitle id="alert-dialog-title">
-                      {'Are you sure you want to delete this contact?'}
-                    </DialogTitle>
-                    <DialogActions>
-                      <Button onClick={handleClose}>No</Button>
-                      <Button
-                        onClick={() => {
-                          dispatch(
-                            phonebookOperations.deleteContact(elementId)
-                          );
-                          handleClose();
-                        }}
-                        autoFocus
-                      >
-                        Yes
-                      </Button>
-                    </DialogActions>
-                  </Dialog>
-                </TableCell>
+                </StyledTableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -160,6 +142,7 @@ export const ContactsList = () => {
           </TableFooter>
         </Table>
       </TableContainer>
+      <Modal id={elementId} open={open} close={handleClose} />
     </>
   );
 };
