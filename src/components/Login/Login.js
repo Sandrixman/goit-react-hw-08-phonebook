@@ -36,6 +36,19 @@ export const Login = () => {
     form.reset();
   };
 
+  const testLogin = e => {
+    e.preventDefault();
+    const form = e.currentTarget;
+
+    dispatch(
+      logIn({
+        email: 'test@myemail.com',
+        password: '123456789',
+      })
+    );
+    form.reset();
+  };
+
   return (
     <Paper
       onSubmit={handleSubmit}
@@ -78,6 +91,16 @@ export const Login = () => {
         variant="contained"
       >
         Log in
+      </LoadingButton>
+      <LoadingButton
+        type="button"
+        endIcon={<SendIcon />}
+        loading={isLoading}
+        onClick={testLogin}
+        loadingPosition="end"
+        variant="contained"
+      >
+        Test input
       </LoadingButton>
       <RouterLink to="/registration">No account? Register now!</RouterLink>
     </Paper>
